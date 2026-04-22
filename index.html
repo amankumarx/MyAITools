@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>My AI Tools - Lakeviya Animated</title>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #050508;
+    color: #e8e8f0;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  /* ========== ANIMATED LAKEVIYA BACKGROUND ========== */
+  .lakeviya-bg {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .lakeviya-text {
+    font-size: clamp(3rem, 15vw, 12rem);
+    font-weight: 900;
+    font-family: 'Segoe UI', 'Poppins', sans-serif;
+    text-transform: uppercase;
+    background: linear-gradient(135deg, #7c6aff20, #ff6a9c20, #6affcc20);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    white-space: nowrap;
+    animation: lakeviyaFloat 8s ease-in-out infinite, lakeviyaRotate 12s linear infinite, lakeviyaGlow 3s ease-in-out infinite;
+    transform-origin: center;
+    letter-spacing: 0.1em;
+    user-select: none;
+  }
+
+  @keyframes lakeviyaFloat {
+    0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.15; }
+    25% { transform: translate(2%, -2%) scale(1.02); opacity: 0.2; }
+    50% { transform: translate(-2%, 1%) scale(0.98); opacity: 0.18; }
+    75% { transform: translate(1%, 2%) scale(1.01); opacity: 0.22; }
+  }
+
+  @keyframes lakeviyaRotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  @keyframes lakeviyaGlow {
+    0%, 100% { text-shadow: 0 0 10px rgba(124,106,255,0.2), 0 0 20px rgba(255,106,156,0.1); }
+    50% { text-shadow: 0 0 30px rgba(124,106,255,0.4), 0 0 50px rgba(255,106,156,0.2); }
+  }
+
+  /* Multiple lakeviya layers for depth */
+  .lakeviya-layer {
+    position: absolute;
+    white-space: nowrap;
+    font-weight: 900;
+    text-transform: uppercase;
+    background: linear-gradient(135deg, #7c6aff15, #ff6a9c15);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: layerDrift 20s linear infinite;
+  }
+
+  @keyframes layerDrift {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+  }
+
+  /* Existing 3D Background Layers */
+  .bg-container {
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    overflow: hidden;
+  }
+
+  .bg-layer {
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    top: -50%;
+    left: -50%;
+  }
+
+  .bg-1 {
+    background: radial-gradient(ellipse at 30% 40%, rgba(124,106,255,0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 60%, rgba(255,106,156,0.1) 0%, transparent 50%);
+    animation: rotateSlow 40s linear infinite;
+  }
+
+  .bg-2 {
+    background: repeating-linear-gradient(45deg, rgba(124,106,255,0.02) 0px, rgba(124,106,255,0.02) 1px, transparent 1px, transparent 20px);
+    animation: shiftFast 15s linear infinite;
+  }
+
+  @keyframes rotateSlow {
+    0% { transform: rotate(0deg) scale(1); }
+    50% { transform: rotate(180deg) scale(1.1); }
+    100% { transform: rotate(360deg) scale(1); }
+  }
+
+  @keyframes shiftFast {
+    0% { background-position: 0 0; }
+    100% { background-position: 100px 100px; }
+  }
+
+  /* Floating Particles */
+  .particle-3d {
+    position: fixed;
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  .particle {
+    position: absolute;
+    background: linear-gradient(135deg, #7c6aff, #ff6a9c);
+    border-radius: 50%;
+    filter: blur(6px);
+    animation: particleDrift 8s ease-in-out infinite;
+  }
+
+  @keyframes particleDrift {
+    0% { transform: translate(0, 0) scale(1); opacity: 0; }
+    20% { opacity: 0.4; }
+    80% { opacity: 0.2; }
+    100% { transform: translate(var(--tx, 100px), var(--ty, -100px)) scale(0); opacity: 0; }
+  }
+
+  /* Main Container */
+  .container {
+    max-width: 1400px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 10;
+    padding: 1rem;
+  }
+
+  /* Header */
+  .header {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    transform-style: preserve-3d;
+    perspective: 500px;
+  }
+
+  .glow-text {
+    font-size: 2.2rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #ffffff, #7c6aff, #ff6a9c, #6affcc);
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: gradientShift 4s ease infinite, titleFloat 2.5s ease-in-out infinite;
+  }
+
+  @keyframes gradientShift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+
+  @keyframes titleFloat {
+    0%, 100% { transform: translateZ(0px); text-shadow: 0 0 15px rgba(124,106,255,0.3); }
+    50% { transform: translateZ(30px); text-shadow: 0 0 40px rgba(124,106,255,0.6); }
+  }
+
+  .subtitle {
+    font-size: 0.7rem;
+    color: #8b8baa;
+    transform: translateZ(15px);
+  }
+
+  /* Search */
+  .search-wrapper {
+    max-width: 320px;
+    margin: 0 auto 1.8rem auto;
+    transform-style: preserve-3d;
+    perspective: 400px;
+  }
+
+  .search-input {
+    width: 100%;
+    padding: 10px 20px;
+    background: rgba(17, 17, 24, 0.5);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(124,106,255,0.3);
+    border-radius: 50px;
+    color: white;
+    font-size: 0.85rem;
+    outline: none;
+    transition: all 0.4s;
+    text-align: center;
+  }
+
+  .search-input:focus {
+    transform: translateZ(15px) scale(1.02);
+    border-color: #7c6aff;
+    box-shadow: 0 0 30px rgba(124,106,255,0.4);
+  }
+
+  /* Compact Grid */
+  .tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1rem;
+    transform-style: preserve-3d;
+    perspective: 1200px;
+  }
+
+  /* Mini 3D Card */
+  .card {
+    background: rgba(17, 17, 24, 0.45);
+    backdrop-filter: blur(12px);
+    border-radius: 16px;
+    padding: 0.8rem;
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    cursor: pointer;
+    transform-style: preserve-3d;
+    transform: translateZ(0);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+    border: 1px solid rgba(124,106,255,0.12);
+    animation: cardAppear 0.5s ease backwards;
+    animation-delay: calc(var(--i, 0) * 0.05s);
+  }
+
+  @keyframes cardAppear {
+    from { opacity: 0; transform: translateY(40px) rotateX(15deg) scale(0.9); }
+    to { opacity: 1; transform: translateY(0) rotateX(0) scale(1); }
+  }
+
+  .card:hover {
+    transform: translateY(-8px) translateZ(25px) rotateX(4deg) rotateY(3deg) scale(1.02);
+    border-color: rgba(124,106,255,0.4);
+    box-shadow: 0 25px 40px rgba(124,106,255,0.15);
+    background: rgba(35, 38, 55, 0.6);
+  }
+
+  .card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    padding: 1px;
+    background: linear-gradient(135deg, transparent, rgba(124,106,255,0.4), transparent);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.4s;
+    pointer-events: none;
+  }
+
+  .card:hover::after { opacity: 1; }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+
+  .card-icon {
+    width: 38px;
+    height: 38px;
+    background: linear-gradient(135deg, rgba(124,106,255,0.25), rgba(255,106,156,0.15));
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    border: 1px solid rgba(124,106,255,0.25);
+    transition: all 0.4s;
+  }
+
+  .card:hover .card-icon {
+    transform: scale(1.08) rotateY(180deg) translateZ(8px);
+    box-shadow: 0 8px 20px rgba(124,106,255,0.3);
+  }
+
+  .card-name {
+    font-weight: 700;
+    font-size: 0.85rem;
+    background: linear-gradient(135deg, #fff, #c4b5fd);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .card-purpose {
+    font-size: 0.65rem;
+    color: #c0c0d8;
+    line-height: 1.35;
+    margin-top: 8px;
+    padding: 6px 8px;
+    background: rgba(10, 10, 15, 0.5);
+    border-radius: 10px;
+    border-left: 2px solid #7c6aff;
+    transition: all 0.3s;
+  }
+
+  .card:hover .card-purpose {
+    transform: translateZ(10px);
+    background: rgba(20, 20, 35, 0.6);
+  }
+
+  /* Footer */
+  .footer-3d {
+    text-align: center;
+    margin-top: 2rem;
+    padding: 0.8rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    transform-style: preserve-3d;
+    transform: translateZ(15px);
+    background: rgba(10,10,15,0.3);
+    backdrop-filter: blur(15px);
+    border-radius: 50px;
+    border: 1px solid rgba(124,106,255,0.12);
+  }
+
+  .founder-img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 2px solid #7c6aff;
+    transition: all 0.4s;
+  }
+
+  .founder-img:hover {
+    transform: scale(1.15) rotate(360deg);
+  }
+
+  .founder-name { color: #7c6aff; font-weight: 600; font-size: 0.7rem; }
+  .funded-by { color: #ff6a9c; font-size: 0.7rem; }
+
+  /* Empty State */
+  .empty-3d {
+    text-align: center;
+    padding: 2rem;
+    background: rgba(17,17,24,0.3);
+    backdrop-filter: blur(15px);
+    border-radius: 30px;
+  }
+
+  /* Cursor */
+  .cursor-3d {
+    position: fixed;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(124,106,255,0.12) 0%, transparent 70%);
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+  }
+
+  @media (max-width: 700px) {
+    .container { padding: 0.8rem; }
+    .glow-text { font-size: 1.6rem; }
+    .tools-grid { grid-template-columns: 1fr; }
+    .footer-3d { padding: 0.6rem 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Animated Lakeviya Background -->
+<div class="lakeviya-bg">
+  <div class="lakeviya-text">LAKEVIYA</div>
+</div>
+
+<!-- Other 3D Background Layers -->
+<div class="bg-container">
+  <div class="bg-layer bg-1"></div>
+  <div class="bg-layer bg-2"></div>
+</div>
+
+<div class="particle-3d" id="particleContainer"></div>
+<div class="cursor-3d" id="cursor3d"></div>
+
+<div class="container">
+  <div class="header">
+    <div class="glow-text">🤖 My AI Tools</div>
+    <div class="subtitle">✦ Har tool ke saath jaano — yeh AI hai aur isliye hai ✦</div>
+  </div>
+
+  <div class="search-wrapper">
+    <input type="text" id="search" class="search-input" placeholder="🔍 Search tools... (press /)">
+  </div>
+
+  <div class="tools-grid" id="toolsGrid"></div>
+  
+  <div class="footer-3d">
+    <img src="https://res.cloudinary.com/ddlc9pfgn/image/upload/v1775854808/IMG_9102_ckumgw.jpg" alt="founder" class="founder-img">
+    <span class="founder-name">Vijay Kumar</span>
+    <span style="color:#4a4a60;">✦</span>
+    <span class="funded-by">💎 Funded by Lakeviya</span>
+  </div>
+</div>
+
+<script>
+// ========== AI TOOLS DATA ==========
+const tools = [
+  { name: "ChatGPT", url: "https://chat.openai.com", icon: "🤖", purpose: "Yeh ChatGPT hai aur isliye hai kyunki yeh baat cheet karta hai, content likhta hai, aur coding mein help karta hai." },
+  { name: "Claude", url: "https://claude.ai", icon: "🧠", purpose: "Yeh Claude hai aur isliye hai kyunki yeh lambe documents padh sakta hai aur detailed analysis karta hai." },
+  { name: "Perplexity", url: "https://perplexity.ai", icon: "🔍", purpose: "Yeh Perplexity hai aur isliye hai kyunki yeh AI-powered search engine hai, citations ke saath answers deta hai." },
+  { name: "Gemini", url: "https://gemini.google.com", icon: "🌟", purpose: "Yeh Gemini hai aur isliye hai kyunki yeh Google ka multimodal AI hai." },
+  { name: "Midjourney", url: "https://midjourney.com", icon: "🎨", purpose: "Yeh Midjourney hai aur isliye hai kyunki yeh text se AI art aur illustrations generate karta hai." },
+  { name: "Copilot", url: "https://github.com/features/copilot", icon: "💻", purpose: "Yeh Copilot hai aur isliye hai kyunki yeh real-time code complete karta hai aur bugs fix karta hai." },
+  { name: "Runway ML", url: "https://runwayml.com", icon: "🎬", purpose: "Yeh Runway hai aur isliye hai kyunki yeh AI video editing aur text-to-video generation karta hai." },
+  { name: "ElevenLabs", url: "https://elevenlabs.io", icon: "🎵", purpose: "Yeh ElevenLabs hai aur isliye hai kyunki yeh realistic AI voice generation karta hai." },
+  { name: "Notion AI", url: "https://notion.so", icon: "📝", purpose: "Yeh Notion AI hai aur isliye hai kyunki yeh notes likhne aur summarize karne mein help karta hai." },
+  { name: "Gemini", url: "https://gemini.google.com", icon: "🌟", purpose: "Yeh Gemini hai aur isliye hai kyunki yeh Google ka multimodal AI hai." },
+  { name: "DALL-E 3", url: "https://openai.com/dall-e-3", icon: "🖼️", purpose: "Yeh DALL-E hai aur isliye hai kyunki yeh OpenAI ka image generator hai." },
+  { name: "Hugging Face", url: "https://huggingface.co", icon: "🤗", purpose: "Yeh Hugging Face hai aur isliye hai kyunki yeh open-source AI models ka platform hai." },
+  { name: "Gamma AI", url: "https://gamma.app", icon: "📊", purpose: "Yeh Gamma hai aur isliye hai kyunki yeh AI-powered presentations banata hai." },
+  { name: "Leonardo AI", url: "https://leonardo.ai", icon: "🎮", purpose: "Yeh Leonardo hai aur isliye hai kyunki yeh game assets generate karta hai." },
+  { name: "Pika Labs", url: "https://pika.art", icon: "🎥", purpose: "Yeh Pika hai aur isliye hai kyunki yeh text se video generate karta hai." }
+];
+
+let currentSearch = "";
+
+// Particles
+function createParticles() {
+  const container = document.getElementById('particleContainer');
+  for (let i = 0; i < 30; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    const size = Math.random() * 30 + 15;
+    p.style.width = size + 'px';
+    p.style.height = size + 'px';
+    p.style.left = Math.random() * 100 + '%';
+    p.style.top = Math.random() * 100 + '%';
+    p.style.setProperty('--tx', (Math.random() - 0.5) * 200 + 'px');
+    p.style.setProperty('--ty', (Math.random() - 0.5) * 200 + 'px');
+    p.style.animationDelay = Math.random() * 8 + 's';
+    container.appendChild(p);
+  }
+}
+
+function getFilteredTools() {
+  let f = [...tools];
+  if (currentSearch.trim()) {
+    const q = currentSearch.toLowerCase();
+    f = f.filter(t => t.name.toLowerCase().includes(q) || t.purpose.toLowerCase().includes(q));
+  }
+  return f;
+}
+
+function renderCards() {
+  const filtered = getFilteredTools();
+  const grid = document.getElementById('toolsGrid');
+  if (!filtered.length) {
+    grid.innerHTML = `<div class="empty-3d">✨ No tools found ✨<br><span style="font-size:0.65rem;">Try searching something else</span></div>`;
+    return;
+  }
+  grid.innerHTML = filtered.map((t, i) => `
+    <div class="card" onclick="openTool('${t.url}')" style="--i: ${i}">
+      <div class="card-header">
+        <div class="card-icon">${t.icon}</div>
+        <div class="card-name">${escapeHtml(t.name)}</div>
+      </div>
+      <div class="card-purpose">🎯 ${escapeHtml(t.purpose)}</div>
+    </div>
+  `).join('');
+  attachTilt();
+}
+
+function openTool(url) { window.open(url, '_blank'); }
+function escapeHtml(str) { return str.replace(/[&<>]/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[m])); }
+
+function attachTilt() {
+  document.querySelectorAll('.card').forEach(card => {
+    card.removeEventListener('mousemove', tiltMove);
+    card.removeEventListener('mouseleave', tiltLeave);
+    card.addEventListener('mousemove', tiltMove);
+    card.addEventListener('mouseleave', tiltLeave);
+  });
+}
+function tiltMove(e) {
+  const rect = this.getBoundingClientRect();
+  const x = (e.clientX - rect.left) / rect.width - 0.5;
+  const y = (e.clientY - rect.top) / rect.height - 0.5;
+  this.style.transform = `translateY(-8px) translateZ(25px) rotateX(${y * 8}deg) rotateY(${x * 8}deg) scale(1.02)`;
+}
+function tiltLeave() { this.style.transform = ''; }
+
+// Search & shortcuts
+document.getElementById('search').addEventListener('input', e => { currentSearch = e.target.value; renderCards(); });
+document.addEventListener('keydown', e => {
+  if (e.key === '/') { e.preventDefault(); document.getElementById('search').focus(); }
+  if (e.key === 'Escape') document.getElementById('search').blur();
+});
+
+// Cursor
+const cursor = document.getElementById('cursor3d');
+document.addEventListener('mousemove', e => { cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px'; });
+
+// Init
+createParticles();
+renderCards();
+</script>
+</body>
+</html>
