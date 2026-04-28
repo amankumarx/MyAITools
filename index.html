@@ -2,8 +2,8 @@
 <html lang="hi">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>My AI Tools - Lakeviya Animated</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>My AI Tools - Lakeviya | How to use (YouTube, Google, Wikipedia)</title>
 <style>
   * {
     margin: 0;
@@ -65,25 +65,7 @@
     50% { text-shadow: 0 0 30px rgba(124,106,255,0.4), 0 0 50px rgba(255,106,156,0.2); }
   }
 
-  /* Multiple lakeviya layers for depth */
-  .lakeviya-layer {
-    position: absolute;
-    white-space: nowrap;
-    font-weight: 900;
-    text-transform: uppercase;
-    background: linear-gradient(135deg, #7c6aff15, #ff6a9c15);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    animation: layerDrift 20s linear infinite;
-  }
-
-  @keyframes layerDrift {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(100%); }
-  }
-
-  /* Existing 3D Background Layers */
+  /* Other 3D Background Layers */
   .bg-container {
     position: fixed;
     inset: 0;
@@ -190,7 +172,7 @@
   /* Search */
   .search-wrapper {
     max-width: 320px;
-    margin: 0 auto 1.8rem auto;
+    margin: 0 auto 1.5rem auto;
     transform-style: preserve-3d;
     perspective: 400px;
   }
@@ -215,21 +197,21 @@
     box-shadow: 0 0 30px rgba(124,106,255,0.4);
   }
 
-  /* Compact Grid */
+  /* Tools Grid */
   .tools-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
     gap: 1rem;
     transform-style: preserve-3d;
     perspective: 1200px;
   }
 
-  /* Mini 3D Card */
+  /* Card */
   .card {
     background: rgba(17, 17, 24, 0.45);
     backdrop-filter: blur(12px);
-    border-radius: 16px;
-    padding: 0.8rem;
+    border-radius: 20px;
+    padding: 0.9rem;
     transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
     cursor: pointer;
     transform-style: preserve-3d;
@@ -238,6 +220,8 @@
     border: 1px solid rgba(124,106,255,0.12);
     animation: cardAppear 0.5s ease backwards;
     animation-delay: calc(var(--i, 0) * 0.05s);
+    display: flex;
+    flex-direction: column;
   }
 
   @keyframes cardAppear {
@@ -251,23 +235,6 @@
     box-shadow: 0 25px 40px rgba(124,106,255,0.15);
     background: rgba(35, 38, 55, 0.6);
   }
-
-  .card::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: 16px;
-    padding: 1px;
-    background: linear-gradient(135deg, transparent, rgba(124,106,255,0.4), transparent);
-    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    opacity: 0;
-    transition: opacity 0.4s;
-    pointer-events: none;
-  }
-
-  .card:hover::after { opacity: 1; }
 
   .card-header {
     display: flex;
@@ -296,72 +263,119 @@
 
   .card-name {
     font-weight: 700;
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     background: linear-gradient(135deg, #fff, #c4b5fd);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
 
   .card-purpose {
-    font-size: 0.65rem;
+    font-size: 0.7rem;
     color: #c0c0d8;
-    line-height: 1.35;
+    line-height: 1.4;
     margin-top: 8px;
-    padding: 6px 8px;
+    padding: 8px 8px;
     background: rgba(10, 10, 15, 0.5);
-    border-radius: 10px;
+    border-radius: 12px;
     border-left: 2px solid #7c6aff;
-    transition: all 0.3s;
+    flex: 1;
   }
 
-  .card:hover .card-purpose {
-    transform: translateZ(10px);
-    background: rgba(20, 20, 35, 0.6);
+  .card-tutorial {
+    margin-top: 10px;
+    padding-top: 6px;
+    border-top: 1px solid rgba(124,106,255,0.2);
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  /* Small learn button - "How to use" */
+  .learn-btn {
+    background: rgba(255, 0, 0, 0.1);
+    backdrop-filter: blur(4px);
+    padding: 4px 10px;
+    border-radius: 30px;
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: #ffb3b3;
+    border: 1px solid rgba(255, 80, 80, 0.3);
+    cursor: pointer;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .learn-btn:hover {
+    background: rgba(255, 50, 50, 0.25);
+    border-color: #ff5e7e;
+    color: #fff;
+    transform: translateY(-1px);
+  }
+
+  /* ========== SIMPLE POPUP (only YouTube, Google, Wikipedia) ========== */
+  .simple-popup {
+    position: fixed;
+    z-index: 20000;
+    background: rgba(10, 10, 20, 0.95);
+    backdrop-filter: blur(16px);
+    border-radius: 20px;
+    border: 1px solid rgba(124, 106, 255, 0.5);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.5);
+    width: 200px;
+    padding: 8px 0;
+    transform-origin: top left;
+    animation: popFade 0.2s ease;
+  }
+  @keyframes popFade {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+  }
+  .popup-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 16px;
+    font-size: 0.8rem;
+    color: #e2e2ff;
+    cursor: pointer;
+    transition: background 0.15s;
+    text-decoration: none;
+  }
+  .popup-item:hover {
+    background: rgba(124, 106, 255, 0.3);
+    color: white;
+  }
+  .popup-item span:first-child {
+    font-size: 1rem;
   }
 
   /* Footer */
   .footer-3d {
     text-align: center;
     margin-top: 2rem;
-    padding: 0.8rem 1.5rem;
+    padding: 0.6rem 1rem;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 10px;
     flex-wrap: wrap;
-    transform-style: preserve-3d;
-    transform: translateZ(15px);
     background: rgba(10,10,15,0.3);
     backdrop-filter: blur(15px);
     border-radius: 50px;
     border: 1px solid rgba(124,106,255,0.12);
   }
-
   .founder-img {
-    width: 32px;
-    height: 32px;
+    width: 28px;
+    height: 28px;
     border-radius: 50%;
     border: 2px solid #7c6aff;
     transition: all 0.4s;
+    object-fit: cover;
   }
-
-  .founder-img:hover {
-    transform: scale(1.15) rotate(360deg);
-  }
-
+  .founder-img:hover { transform: scale(1.1) rotate(360deg); }
   .founder-name { color: #7c6aff; font-weight: 600; font-size: 0.7rem; }
   .funded-by { color: #ff6a9c; font-size: 0.7rem; }
-
-  /* Empty State */
-  .empty-3d {
-    text-align: center;
-    padding: 2rem;
-    background: rgba(17,17,24,0.3);
-    backdrop-filter: blur(15px);
-    border-radius: 30px;
-  }
-
-  /* Cursor */
+  .empty-3d { text-align: center; padding: 2rem; background: rgba(17,17,24,0.3); backdrop-filter: blur(15px); border-radius: 30px; }
   .cursor-3d {
     position: fixed;
     width: 200px;
@@ -372,43 +386,26 @@
     transform: translate(-50%, -50%);
     z-index: 9999;
   }
-
   @media (max-width: 700px) {
-    .container { padding: 0.8rem; }
-    .glow-text { font-size: 1.6rem; }
-    .tools-grid { grid-template-columns: 1fr; }
-    .footer-3d { padding: 0.6rem 1rem; }
+    .simple-popup { width: 180px; }
+    .popup-item { padding: 6px 12px; font-size: 0.75rem; }
+    .learn-btn { font-size: 0.65rem; padding: 3px 8px; }
   }
 </style>
 </head>
 <body>
-
-<!-- Animated Lakeviya Background -->
-<div class="lakeviya-bg">
-  <div class="lakeviya-text">LAKEVIYA</div>
-</div>
-
-<!-- Other 3D Background Layers -->
-<div class="bg-container">
-  <div class="bg-layer bg-1"></div>
-  <div class="bg-layer bg-2"></div>
-</div>
-
+<div class="lakeviya-bg"><div class="lakeviya-text">LAKEVIYA</div></div>
+<div class="bg-container"><div class="bg-layer bg-1"></div><div class="bg-layer bg-2"></div></div>
 <div class="particle-3d" id="particleContainer"></div>
 <div class="cursor-3d" id="cursor3d"></div>
 
 <div class="container">
   <div class="header">
     <div class="glow-text">🤖 My AI Tools</div>
-    <div class="subtitle">✦ Har tool ke saath jaano — yeh AI hai aur isliye hai ✦</div>
+    <div class="subtitle">✦ How to use? Click → YouTube, Google, Wikipedia ✦</div>
   </div>
-
-  <div class="search-wrapper">
-    <input type="text" id="search" class="search-input" placeholder="🔍 Search tools... (press /)">
-  </div>
-
+  <div class="search-wrapper"><input type="text" id="search" class="search-input" placeholder="🔍 Search tools... (press /)"></div>
   <div class="tools-grid" id="toolsGrid"></div>
-  
   <div class="footer-3d">
     <img src="https://res.cloudinary.com/ddlc9pfgn/image/upload/v1775854808/IMG_9102_ckumgw.jpg" alt="founder" class="founder-img">
     <span class="founder-name">Vijay kumar</span>
@@ -424,35 +421,35 @@ const tools = [
   { name: "Claude", url: "https://claude.ai", icon: "🧠", purpose: "Yeh Claude hai aur isliye hai kyunki yeh lambe documents padh sakta hai aur detailed analysis karta hai." },
   { name: "Perplexity", url: "https://perplexity.ai", icon: "🔍", purpose: "Yeh Perplexity hai aur isliye hai kyunki yeh AI-powered search engine hai, citations ke saath answers deta hai." },
   { name: "Gemini", url: "https://gemini.google.com", icon: "🌟", purpose: "Yeh Gemini hai aur isliye hai kyunki yeh Google ka multimodal AI hai." },
-  { name: "Deepseek", url: "https://chat.deepseek.com/", icon: "🌟", purpose: "DeepSeek ek advanced AI chatbot + coding AI hai jo China ki AI company DeepSeek AI ne develop kiya hai." },
-  { name: "Rumik", url: "https://rumik.ai/", icon: "🌟", purpose: "Iska use log normally AI se personal conversation karne ke liye karte hain." },
-  { name: "Higgsfield", url: "https://higgsfield.ai/", icon: "🌟", purpose: "ek Artificial Intelligence platform hai jo mainly AI videos, AI avatars aur AI content creation ke liye use hota hai." },
-  { name: "Madgicx", url: "madgicx.com", icon: "🌟", purpose: "Madgicx ek AI-based marketing tool hai jo mainly Facebook Ads, Instagram Ads aur Google Ads ko automate aur optimize karne ke liye use hota hai." },
-  { name: "Vapi", url: "https://vapi.ai/", icon: "🌟", purpose: "Vapi ka use hota hai AI phone caller / AI calling system banane ke liye." },
-  { name: "Julius", url: "https://julius.ai/", icon: "🌟", purpose: "Yeh especially un logon ke liye bana hai jo data analysis, graphs, reports, aur prediction bina coding ke karna chahte hain" },
-  { name: "Replit", url: "replit.com", icon: "🤖", purpose: "Replit ek online coding platform hai jahan tum bina kuch install kiye browser se hi coding kar sakte ho." },
-  { name: "Emergent", url: "https://emergent.sh", icon: "🤖", purpose: "non-coders aur founders ke liye bani hai jo idea se direct app banana chahte hain — bina coding sikhe." },
-  { name: "Paperclip", url: "https://github.com/paperclipai", icon: "🤖", purpose: "Yha pr sare agent ko combine krke work kraya jata h..open sourse" },
-  { name: "Polsia", url: "https://polsia.com/", icon: "🤖", purpose: "AI Autonomous Company Platform hai,Polsia = AI jo poori company ko automatically run karne ki koshish karta hai." },
-  { name: "Nas", url: "https://nas.com/", icon: "🌟", purpose: "Start selling from a single photo" },
-  { name: "Pietra", url: "https://www.pietrastudio.com/", icon: "🌟", purpose: "Pietra ek e-commerce brand-building platform hai.Apna product brand start karna — bina factory aur bina inventory ke." },
-  { name: "Curaa", url: "https://curaos.com/", icon: "🌟", purpose: "CuraOS AI-powered management platform hai jo mainly business operations ya care services manage karne ke liye use hota hai." },
-  { name: "Apify", url: "https://apify.com/?fpr=n9fhp&gad_source=1", icon: "🌟", purpose: "Internet ki websites se automatic data nikalna (without manual copying)." },
-  { name: "Kimi", url: "https://www.kimi.com/", icon: "🌟", purpose: "Kimi = AI jo sirf jawab nahi deta, kaam karke deta hai." },
-  { name: "Grok", url: "https://grok.com/", icon: "🌟", purpose: "Grok ek AI chatbot hai jo xAI ne banaya hai.Grok = Elon Musk ka AI assistant(ChatGPT jaisa, but different style)" },
-  { name: "HuggingFace", url: "https://huggingface.co/", icon: "🌟", purpose: "Hugging Face AI world ki sabse important websites me se ek hai,Hugging Face = AI tools + AI models + AI community ka biggest hub" },
+  { name: "Deepseek", url: "https://chat.deepseek.com/", icon: "⚡", purpose: "DeepSeek ek advanced AI chatbot + coding AI hai jo China ki AI company DeepSeek AI ne develop kiya hai." },
+  { name: "Rumik", url: "https://rumik.ai/", icon: "💬", purpose: "Iska use log normally AI se personal conversation karne ke liye karte hain." },
+  { name: "Higgsfield", url: "https://higgsfield.ai/", icon: "🎬", purpose: "ek Artificial Intelligence platform hai jo mainly AI videos, AI avatars aur AI content creation ke liye use hota hai." },
+  { name: "Madgicx", url: "https://madgicx.com", icon: "📈", purpose: "Madgicx ek AI-based marketing tool hai jo mainly Facebook Ads, Instagram Ads aur Google Ads ko automate aur optimize karne ke liye use hota hai." },
+  { name: "Vapi", url: "https://vapi.ai/", icon: "📞", purpose: "Vapi ka use hota hai AI phone caller / AI calling system banane ke liye." },
+  { name: "Julius", url: "https://julius.ai/", icon: "📊", purpose: "Yeh especially un logon ke liye bana hai jo data analysis, graphs, reports, aur prediction bina coding ke karna chahte hain" },
+  { name: "Replit", url: "https://replit.com", icon: "💻", purpose: "Replit ek online coding platform hai jahan tum bina kuch install kiye browser se hi coding kar sakte ho." },
+  { name: "Emergent", url: "https://emergent.sh", icon: "🧩", purpose: "non-coders aur founders ke liye bani hai jo idea se direct app banana chahte hain — bina coding sikhe." },
+  { name: "Paperclip", url: "https://github.com/paperclipai", icon: "🧷", purpose: "Yha pr sare agent ko combine krke work kraya jata h..open source" },
+  { name: "Polsia", url: "https://polsia.com/", icon: "🏢", purpose: "AI Autonomous Company Platform hai, Polsia = AI jo poori company ko automatically run karne ki koshish karta hai." },
+  { name: "Nas", url: "https://nas.com/", icon: "🛍️", purpose: "Start selling from a single photo" },
+  { name: "Pietra", url: "https://www.pietrastudio.com/", icon: "🏭", purpose: "Pietra ek e-commerce brand-building platform hai. Apna product brand start karna — bina factory aur bina inventory ke." },
+  { name: "Curaa", url: "https://curaos.com/", icon: "⚙️", purpose: "CuraOS AI-powered management platform hai jo mainly business operations ya care services manage karne ke liye use hota hai." },
+  { name: "Apify", url: "https://apify.com/", icon: "🕸️", purpose: "Internet ki websites se automatic data nikalna (without manual copying)." },
+  { name: "Kimi", url: "https://www.kimi.com/", icon: "🔥", purpose: "Kimi = AI jo sirf jawab nahi deta, kaam karke deta hai." },
+  { name: "Grok", url: "https://grok.com/", icon: "🌌", purpose: "Grok ek AI chatbot hai jo xAI ne banaya hai. Grok = Elon Musk ka AI assistant (ChatGPT jaisa, but different style)" },
+  { name: "HuggingFace", url: "https://huggingface.co/", icon: "🤗", purpose: "Hugging Face AI world ki sabse important websites me se ek hai, Hugging Face = AI tools + AI models + AI community ka biggest hub" },
   { name: "Midjourney", url: "https://midjourney.com", icon: "🎨", purpose: "Yeh Midjourney hai aur isliye hai kyunki yeh text se AI art aur illustrations generate karta hai." },
-  { name: "Copilot", url: "https://github.com/features/copilot", icon: "💻", purpose: "Yeh Copilot hai aur isliye hai kyunki yeh real-time code complete karta hai aur bugs fix karta hai." },
+  { name: "Copilot", url: "https://github.com/features/copilot", icon: "👨‍💻", purpose: "Yeh Copilot hai aur isliye hai kyunki yeh real-time code complete karta hai aur bugs fix karta hai." },
   { name: "Runway ML", url: "https://runwayml.com", icon: "🎬", purpose: "Yeh Runway hai aur isliye hai kyunki yeh AI video editing aur text-to-video generation karta hai." },
-  { name: "ElevenLabs", url: "https://elevenlabs.io", icon: "🎵", purpose: "Yeh ElevenLabs hai aur isliye hai kyunki yeh realistic AI voice generation karta hai." },
+  { name: "ElevenLabs", url: "https://elevenlabs.io", icon: "🎙️", purpose: "Yeh ElevenLabs hai aur isliye hai kyunki yeh realistic AI voice generation karta hai." },
   { name: "Notion AI", url: "https://notion.so", icon: "📝", purpose: "Yeh Notion AI hai aur isliye hai kyunki yeh notes likhne aur summarize karne mein help karta hai." },
-  { name: "Gemini", url: "https://gemini.google.com", icon: "🌟", purpose: "Yeh Gemini hai aur isliye hai kyunki yeh Google ka multimodal AI hai." },
   { name: "DALL-E 3", url: "https://openai.com/dall-e-3", icon: "🖼️", purpose: "Yeh DALL-E hai aur isliye hai kyunki yeh OpenAI ka image generator hai." },
   { name: "Gamma AI", url: "https://gamma.app", icon: "📊", purpose: "Yeh Gamma hai aur isliye hai kyunki yeh AI-powered presentations banata hai." },
   { name: "Leonardo AI", url: "https://leonardo.ai", icon: "🎮", purpose: "Yeh Leonardo hai aur isliye hai kyunki yeh game assets generate karta hai." },
   { name: "Pika Labs", url: "https://pika.art", icon: "🎥", purpose: "Yeh Pika hai aur isliye hai kyunki yeh text se video generate karta hai." }];
 
 let currentSearch = "";
+let activePopup = null;
 
 // Particles
 function createParticles() {
@@ -481,6 +478,96 @@ function getFilteredTools() {
   return f;
 }
 
+function openTool(url) {
+  let finalUrl = url;
+  if (!url.startsWith('http')) finalUrl = 'https://' + url;
+  window.open(finalUrl, '_blank');
+}
+
+// ========== SIMPLE POPUP with only YouTube, Google, Wikipedia ==========
+function showLearnPopup(toolName, event) {
+  if (activePopup) activePopup.remove();
+  
+  const youtubeUrl = `https://www.youtube.com/results?search_query=${encodeURIComponent(toolName + " tutorial step by step")}`;
+  const googleUrl = `https://www.google.com/search?q=${encodeURIComponent(toolName + " how to use guide")}`;
+  const wikipediaUrl = `https://en.wikipedia.org/w/index.php?search=${encodeURIComponent(toolName + " AI")}`;
+  
+  const popup = document.createElement('div');
+  popup.className = 'simple-popup';
+  popup.innerHTML = `
+    <div class="popup-item" data-type="youtube">
+      <span>🎬</span> <span>YouTube Tutorials</span>
+    </div>
+    <div class="popup-item" data-type="google">
+      <span>🔍</span> <span>Google Search</span>
+    </div>
+    <div class="popup-item" data-type="wikipedia">
+      <span>📖</span> <span>Wikipedia</span>
+    </div>
+  `;
+  
+  const button = event.target.closest('.learn-btn');
+  if (button) {
+    const rect = button.getBoundingClientRect();
+    popup.style.left = rect.left + 'px';
+    popup.style.top = (rect.bottom + 5) + 'px';
+    setTimeout(() => {
+      const popupRect = popup.getBoundingClientRect();
+      if (popupRect.right > window.innerWidth) {
+        popup.style.left = (window.innerWidth - popupRect.width - 10) + 'px';
+      }
+    }, 0);
+  } else {
+    popup.style.left = '50%';
+    popup.style.top = '50%';
+    popup.style.transform = 'translate(-50%, -50%)';
+  }
+  
+  popup.querySelector('[data-type="youtube"]').addEventListener('click', (e) => {
+    e.stopPropagation();
+    window.open(youtubeUrl, '_blank');
+    popup.remove();
+    activePopup = null;
+  });
+  popup.querySelector('[data-type="google"]').addEventListener('click', (e) => {
+    e.stopPropagation();
+    window.open(googleUrl, '_blank');
+    popup.remove();
+    activePopup = null;
+  });
+  popup.querySelector('[data-type="wikipedia"]').addEventListener('click', (e) => {
+    e.stopPropagation();
+    window.open(wikipediaUrl, '_blank');
+    popup.remove();
+    activePopup = null;
+  });
+  
+  document.body.appendChild(popup);
+  activePopup = popup;
+  
+  const closeHandler = (e) => {
+    if (!popup.contains(e.target)) {
+      popup.remove();
+      activePopup = null;
+      document.removeEventListener('click', closeHandler);
+      document.removeEventListener('keydown', escHandler);
+    }
+  };
+  const escHandler = (e) => {
+    if (e.key === 'Escape') {
+      popup.remove();
+      activePopup = null;
+      document.removeEventListener('click', closeHandler);
+      document.removeEventListener('keydown', escHandler);
+    }
+  };
+  setTimeout(() => {
+    document.addEventListener('click', closeHandler);
+    document.addEventListener('keydown', escHandler);
+  }, 0);
+}
+
+// Render cards with "How to use" button
 function renderCards() {
   const filtered = getFilteredTools();
   const grid = document.getElementById('toolsGrid');
@@ -488,22 +575,36 @@ function renderCards() {
     grid.innerHTML = `<div class="empty-3d">✨ No tools found ✨<br><span style="font-size:0.65rem;">Try searching something else</span></div>`;
     return;
   }
-  grid.innerHTML = filtered.map((t, i) => `
-    <div class="card" onclick="openTool('${t.url}')" style="--i: ${i}">
-      <div class="card-header">
-        <div class="card-icon">${t.icon}</div>
-        <div class="card-name">${escapeHtml(t.name)}</div>
+  grid.innerHTML = filtered.map((t, idx) => {
+    const safeName = escapeHtml(t.name);
+    const safePurpose = escapeHtml(t.purpose);
+    return `
+      <div class="card" onclick="openTool('${t.url}')" style="--i: ${idx}">
+        <div class="card-header">
+          <div class="card-icon">${t.icon}</div>
+          <div class="card-name">${safeName}</div>
+        </div>
+        <div class="card-purpose">🎯 ${safePurpose}</div>
+        <div class="card-tutorial">
+          <button class="learn-btn" data-tool="${t.name.replace(/'/g, "\\'")}">📘 How to use</button>
+        </div>
       </div>
-      <div class="card-purpose">🎯 ${escapeHtml(t.purpose)}</div>
-    </div>
-  `).join('');
-  attachTilt();
+    `;
+  }).join('');
+  
+  document.querySelectorAll('.learn-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const toolName = btn.getAttribute('data-tool');
+      if (toolName) showLearnPopup(toolName, e);
+    });
+  });
+  attachTiltEvents();
 }
 
-function openTool(url) { window.open(url, '_blank'); }
 function escapeHtml(str) { return str.replace(/[&<>]/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[m])); }
 
-function attachTilt() {
+function attachTiltEvents() {
   document.querySelectorAll('.card').forEach(card => {
     card.removeEventListener('mousemove', tiltMove);
     card.removeEventListener('mouseleave', tiltLeave);
@@ -519,18 +620,18 @@ function tiltMove(e) {
 }
 function tiltLeave() { this.style.transform = ''; }
 
-// Search & shortcuts
+// Search & init
 document.getElementById('search').addEventListener('input', e => { currentSearch = e.target.value; renderCards(); });
 document.addEventListener('keydown', e => {
   if (e.key === '/') { e.preventDefault(); document.getElementById('search').focus(); }
-  if (e.key === 'Escape') document.getElementById('search').blur();
+  if (e.key === 'Escape') {
+    document.getElementById('search').blur();
+    if (activePopup) { activePopup.remove(); activePopup = null; }
+  }
 });
-
-// Cursor
 const cursor = document.getElementById('cursor3d');
 document.addEventListener('mousemove', e => { cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px'; });
 
-// Init
 createParticles();
 renderCards();
 </script>
