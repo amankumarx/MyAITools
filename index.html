@@ -433,10 +433,10 @@ const tools = [
    { name: "ChatGPT Atlas", url: "https://chatgpt.com/atlas/", icon: "🔍", purpose: "ChatGPT Atlas ek AI-powered web browser hai jo OpenAI ne banaya hai. Ye normal Chrome ya Edge jaisa browser nahi hai — isme ChatGPT directly browser ke andar integrated hota hai" },
    { name: "Feedly", url: "https://feedly.com/", icon: "📊", purpose: "Feedly ek AI-powered news aggregator aur research platform hai. Simple language me: ye internet ke blogs, news websites, YouTube channels, newsletters, Reddit feeds, research sources ko ek jagah collect karta hai." },
    { name: "Ollama", url: "https://ollama.com/", icon: "🌟", purpose: "Ollama ek software hai jo tumhare laptop/PC par AI models locally run karne deta hai — bina cloud API ke" },
-   { name: "Make", url: "https://www.make.com/en", icon: "📊", purpose: "Make ek no-code automation platform hai jisse tum different apps ko connect karke automatic workflows bana sakte ho. Pehle iska naam “Integromat” tha" },
-   { name: "zapier", url: "https://zapier.com/", icon: "📊", purpose: "zapier ek no-code automation platform hai jisse tum different apps ko connect karke automatic workflows bana sakte ho." },
+   { name: "Make", url: "https://www.make.com/en", icon: "⚙️", purpose: "Make ek no-code automation platform hai jisse tum different apps ko connect karke automatic workflows bana sakte ho. Pehle iska naam “Integromat” tha" },
+   { name: "zapier", url: "https://zapier.com/", icon: "🧩", purpose: "zapier ek no-code automation platform hai jisse tum different apps ko connect karke automatic workflows bana sakte ho." },
    { name: "n8n", url: "https://n8n.io/", icon: "📊", purpose: "n8n ek no-code automation platform hai jisse tum different apps ko connect karke automatic workflows bana sakte ho" },
-   { name: "Manus", url: "https://manus.im/", icon: "📊", purpose: "Manus ek autonomous AI agent platform hai jo “AI that actually does work” concept par focus karta hai." },
+   { name: "Manus", url: "https://manus.im/", icon: "🧩", purpose: "Manus ek autonomous AI agent platform hai jo “AI that actually does work” concept par focus karta hai." },
     { name: "Arena", url: "https://arena.ai/", icon: "📊", purpose: "Arena ek autonomous AI agent platform hai jo “AI that actually does work” concept par focus karta hai." },
  { name: "Replit", url: "https://replit.com", icon: "💻", purpose: "Replit ek online coding platform hai jahan tum bina kuch install kiye browser se hi coding kar sakte ho." },
   { name: "Emergent", url: "https://emergent.sh", icon: "🧩", purpose: "non-coders aur founders ke liye bani hai jo idea se direct app banana chahte hain — bina coding sikhe." },
@@ -499,9 +499,9 @@ function openTool(url) {
 function showLearnPopup(toolName, event) {
   if (activePopup) activePopup.remove();
   
-  const youtubeUrl = `https://www.youtube.com/results?search_query=${encodeURIComponent(toolName + " tutorial step by step")}`;
+  const youtubeUrl = `https://www.youtube.com/results?search_query=${encodeURIComponent(toolName + "Hiw to use tutorial step by step with youtube playlist")}`;
   const googleUrl = `https://www.google.com/search?q=${encodeURIComponent(toolName + " how to use guide")}`;
-  const wikipediaUrl = `https://en.wikipedia.org/w/index.php?search=${encodeURIComponent(toolName + " AI")}`;
+  const wikipediaUrl = `https://en.wikipedia.org/w/index.php?search=${encodeURIComponent(toolName + "How to use this tool about article this tool ")}`;
   
   const popup = document.createElement('div');
   popup.className = 'simple-popup';
